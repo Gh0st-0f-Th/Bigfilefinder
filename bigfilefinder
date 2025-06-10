@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Check if bc is installed, if not install it
+if ! command -v bc &> /dev/null; then
+    echo "🔧 bc not found, installing..."
+    pkg install bc -y
+    if ! command -v bc &> /dev/null; then
+        echo "❌ Failed to install bc. Please install it manually."
+        exit 1
+    fi
+fi
+
+largest_size=0
+largest_file=""
+
+for file in $(find . -type f); do
+    echo -ne "🔎 Scanning: $file\r"
+    size=$(stat -c%s "$file")
+    if (( size > largest_size )); then
+        largest_size=$size
+        largest_file="$file"
+    fi
+done
+
+function human_readable {
+    local bytes=$1
+    local kib=1024
+    local mib=$((kib * 1024))
+    local gib=$((mib * 1024))
+
+    if (( bytes >= gib )); then
+        printf "%.2f GB" "$(bc -l <<< "$bytes/$gib")"
+    elif (( bytes >= mib )); then
+        printf "%.2f MB" "$(bc -l <<< "$bytes/$mib")"
+    elif (( bytes >= kib )); then
+        printf "%.2f KB" "$(bc -l <<< "$bytes/$kib")"
+    else
+        printf "%d bytes" "$bytes"
+    fi
+}
+
+echo -ne "\n✅ Scan complete!\n"
+echo "🔥 Largest file: $largest_file"
+echo -n "📦 Size: "
+human_readable "$largest_size"
+echo
