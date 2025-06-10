@@ -1,25 +1,21 @@
-# 🧠 Bigfilefinder
+# 🔎 BigFileFinder
 
-> 🔍 *"Find the file that’s hogging your storage like an absolute unit."*
-
-Bigfilefinder is a lightweight Bash script that scans the current directory and all subdirectories to find the **largest file**. It reports the filename, size (in smart human-readable format), and does it with flair.
+A blazing-fast bash tool to find the largest file in your current directory and its subdirectories. Designed for Termux users, Linux warriors, and shell scripters who like their tools fast and silent.
 
 ---
 
 ## 🚀 Features
 
-- 🔎 Scans all directories recursively
-- 📏 Outputs file sizes in **KB/MB/GB** (dynamically)
-- 🖥️ Works great in **Termux**, Linux, and WSL
-- 📦 Uses `stat` and `bc` — nothing bloated
+- Scans all files recursively
+- Displays the largest file
+- Human-readable output (e.g. MB, GB)
+- Automatically installs `bc` if missing
 
 ---
 
-## 🧪 Usage
-
-1. Open your terminal
-2. Navigate to the directory you want to scan
-3. Run:
+## ⚙️ Installation
 
 ```bash
-bash bigfilefinder
+git clone https://github.com/Gh0st-0f-Th/Bigfilefinder.git
+cd Bigfilefinder
+bash install.sh
